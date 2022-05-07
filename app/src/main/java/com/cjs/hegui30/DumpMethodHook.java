@@ -53,19 +53,23 @@ public abstract class DumpMethodHook extends XC_MethodHook {
      * dump模式2：类信通院报告模式
      */
     private static void dump2(){
-        XposedBridge.log("Dump Stack: "+"---------------start----------------");
+        XposedBridge.log("[Dump Stack]: ---------------start----------------");
         Throwable ex = new Throwable();
         StackTraceElement[] stackElements = ex.getStackTrace();
         if (stackElements != null) {
-            for (int i= 0; i < stackElements.length; i++) {
-                StringBuilder sb=new StringBuilder("[方法栈调用]");
-                sb.append(i);
-                XposedBridge.log("[Dump Stack]"+i+": "+ stackElements[i].getClassName()
-                        +"----"+stackElements[i].getFileName()
-                        +"----" + stackElements[i].getLineNumber()
-                        +"----" +stackElements[i].getMethodName());
+            for (int i= 4; i < stackElements.length; i++) {
+                XposedBridge.log("[Dump Stack]" +
+                        i +
+                        ": " +
+                        stackElements[i].getClassName() +
+                        '.' +
+                        stackElements[i].getMethodName() +
+                        '(' +
+                        stackElements[i].getFileName() +
+                        ':' + stackElements[i].getLineNumber() +
+                        ')');
             }
         }
-        XposedBridge.log("Dump Stack: "+ "---------------over----------------");
+        XposedBridge.log("[Dump Stack]: ---------------end----------------");
     }
 }
